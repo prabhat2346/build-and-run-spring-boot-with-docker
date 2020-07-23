@@ -27,6 +27,9 @@
     <properties>
         <java.version>1.8</java.version>
         <jackson.mapper.version>1.5.6</jackson.mapper.version>
+        <image.active.profile>uat</image.active.profile>
+        <image.active.profile>stg</image.active.profile>
+        <image.active.profile>prd</image.active.profile>
     </properties>
     <build>
         <plugins>
@@ -34,6 +37,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+             <plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.6</version>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<registryUrl>https://${docker.image.prefix}</registryUrl>
+					<tag>${revision}</tag>
+					<serverId>${azure.containerRegistry}</serverId>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+						<ACTIVE_PROFILE>${image.active.profile}</ACTIVE_PROFILE>	
+					</buildArgs>
+
+				</configuration>
+			</plugin>
             
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
