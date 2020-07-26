@@ -77,7 +77,7 @@ node('master'){
 						""")
 					}
            //defining image name for UAT Environment
-           def image = env.UAT_IMAGE_TAG
+           def image = imageTag
            sh """
               kubectl set image statefulset/"${serviceName}" "${serviceName}"="${image}" -o json
               """
