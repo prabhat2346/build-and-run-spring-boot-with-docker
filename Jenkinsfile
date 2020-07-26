@@ -68,7 +68,9 @@ node('master'){
      }
     }
     stage("AKS Login & Deploy"){
-        withCredentials([kubeconfigFile(credentialsId: 'KUBERNETES_CLUSTER_CONFIG', variable: 'KUBECONFIG')]) {
+         switch(ENVIRONMENT_VAR) {
+         case "uat":    
+         withCredentials([kubeconfigFile(credentialsId: 'KUBERNETES_CLUSTER_CONFIG', variable: 'KUBECONFIG')]) {
             sh 'az aks get-credentials -g myResourceGroup -n myAkscluster'
             //Capturing the current running Image.
 					script{
@@ -81,6 +83,7 @@ node('master'){
            sh """
               kubectl set image statefulset/"${serviceName}" "${serviceName}"="${image}" -o json
               """
+           }
         }
     }
    }
