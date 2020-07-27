@@ -64,7 +64,7 @@ node('master'){
 
 	      		#!/bin/bash
                         echo "This is start $(pwd)"
-	      		cd ./build-and-run-spring-boot-with-docker
+	      		cd ./home/itadmin/SPRING_BOOT/build-and-run-spring-boot-with-docker
 
 				grep -oPm1 "(?<=<version>)[^<]+" "pom.xml" ''')
 
