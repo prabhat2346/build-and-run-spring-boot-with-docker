@@ -62,6 +62,8 @@ node('master'){
 
 	      VERSION = sh(returnStdout: true, script: '''
 
+	      		#!/bin/bash
+                        echo "This is start $(pwd)"
 	      		cd ./build-and-run-spring-boot-with-docker
 
 				grep -oPm1 "(?<=<version>)[^<]+" "pom.xml" ''')
