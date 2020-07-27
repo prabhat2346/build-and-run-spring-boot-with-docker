@@ -76,8 +76,8 @@ node('master'){
 	"""
      }
     }
-   }
-        catch(e) {
+   }   catch(e) {
+   
                 //If build fails
                   currentBuild.result = "FAILED"
                   error('Build Failed')
