@@ -55,9 +55,18 @@ node('master'){
 
   sh"""
 	mvn clean install -DskipTests  "-Dimage.active.profile=${active_profile}" "-Ddocker.image.prefix=${dockerRegistry}"  dockerfile:build 
-	""" 
+	"""
+         //reading version number from properties file.
+
+			script {
+
+	      VERSION = sh(returnStdout: true, script: '''
+	                        pwd
+				grep -oPm1 "(?<=<version>)[^<]+" "pom.xml" ''')
+
+	    }
 	//defining IMAGE name for UAT Environment & pushing the Image.
-	def image = imageTag
+	def image = imageTag+":"+VERSION.toInteger()
     echo "${image}"
      withCredentials([usernamePassword(credentialsId: dockerCredential, passwordVariable: 'pass', usernameVariable: 'user')]) {
      sh"""
@@ -79,11 +88,11 @@ node('master'){
 						""")
 					}
            //defining image name for UAT Environment
-           def image = imageTag
+           def image = imageTag+":"+VERSION.toInteger()
            sh """
               kubectl set image statefulset/"${serviceName}" "${serviceName}"="${image}" -o json
               """
            }
         }
     }
-   }
+  }
