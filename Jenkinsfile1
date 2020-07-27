@@ -82,6 +82,7 @@ node('master'){
                   currentBuild.result = "FAILED"
                   error('Build Failed')
 		  echo ''+e.toString()
+		  }
 
     stage("AKS Login & Deploy"){
          switch(ENVIRONMENT_VAR) {
