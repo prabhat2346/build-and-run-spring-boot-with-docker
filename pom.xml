@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.briansjavablog</groupId>
     <artifactId>docker-boot-intro</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -44,7 +44,7 @@
 				<configuration>
 					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 					<registryUrl>https://${docker.image.prefix}</registryUrl>
-					<tag>${revision}</tag>
+					<tag>${project.version}</tag>
 					<serverId>${azure.containerRegistry}</serverId>
 					<buildArgs>
 						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
