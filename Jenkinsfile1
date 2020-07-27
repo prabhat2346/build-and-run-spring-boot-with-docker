@@ -53,6 +53,8 @@ node('master'){
 //Build & Push process for UAT Environment.
     stage('Build & Push on ${environment}') {
 
+             try{
+
   sh"""
 	mvn clean install -DskipTests  "-Dimage.active.profile=${active_profile}" "-Ddocker.image.prefix=${dockerRegistry}"  dockerfile:build 
 	"""
@@ -62,6 +64,7 @@ node('master'){
 	                        pwd
 				grep -oPm1 "(?<=<version>)[^<]+" "pom.xml" ''')
 				}
+          
 	//defining IMAGE name for UAT Environment & pushing the Image.
 	def image = imageTag+":"+VERSION.toInteger()
     echo "${image}"
@@ -73,6 +76,13 @@ node('master'){
 	"""
      }
     }
+   }
+        catch(e) {
+                //If build fails
+                  currentBuild.result = "FAILED"
+                  error('Build Failed')
+		  echo ''+e.toString()
+
     stage("AKS Login & Deploy"){
          switch(ENVIRONMENT_VAR) {
          case "uat":    
