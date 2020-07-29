@@ -64,8 +64,8 @@ node('master'){
 	 docker login ${user}.azurecr.io -u ${user} -p ${pass}
 	 echo ${image}
 	 docker push "${image}"
-	 docker ps -a
 	 docker images
+	 docker ps -a
 	"""
      }
     }
