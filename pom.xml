@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.briansjavablog</groupId>
     <artifactId>docker-boot-intro</artifactId>
-    <version>1212</version>
+    <version>0.1.0</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
