@@ -12,6 +12,6 @@ FROM openjdk:8-jre-alpine
 
 WORKDIR /app
 
-COPY --from=MAVEN_BUILD /build/target/docker-boot-intro-0.6.0.jar /app/
+COPY --from=MAVEN_BUILD /build/target/docker-boot-intro-0.7.0.jar /app/
 
-ENTRYPOINT ["java", "-jar", "docker-boot-intro-0.6.0.jar"]
+ENTRYPOINT ["java", "-jar", "docker-boot-intro-0.7.0.jar"]
