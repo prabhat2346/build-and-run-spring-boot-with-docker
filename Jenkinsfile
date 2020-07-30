@@ -65,7 +65,6 @@ node('master'){
 	 echo ${image}
 	 docker push "${image}"
 	 docker images
-	 docker ps -a
 	"""
      }
     }
@@ -84,8 +83,8 @@ node('master'){
            def image = imageTag
            sh """
               kubectl set image statefulset/"${serviceName}" "${serviceName}"="${image}" -o json
+	      kubectl delete pod --all
 	      kubectl get pod
-	      kubectl get statefulset
               """
            }
         }
